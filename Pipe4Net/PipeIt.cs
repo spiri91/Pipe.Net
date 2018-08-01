@@ -32,16 +32,13 @@ namespace Pipe4Net
 
         public static IEnumerable<T> ShallowCopy<T>(this IEnumerable<T> array) => array;
 
-        public static bool AreSameByValue<T>(this IEnumerable<T> array, IEnumerable<T> arrayToCompare) where T : IEqualityComparer<T>
+        public static bool AreSameByValue<T>(this IEnumerable<T> array, IEnumerable<T> arrayToCompare, Func<T, T, bool> compareFunction)
         {
             if (array.Count() != arrayToCompare.Count()) return false;
 
             foreach (var v in array)
             {
-                foreach(var w in arrayToCompare)
-                {
-                    if(v.Equals(w)) break;
-                }
+                if (arrayToCompare.Contains(v)) continue;
 
                 return false;
             }
@@ -49,13 +46,13 @@ namespace Pipe4Net
             return true;
         }
 
-        public static bool AreSameByValueAndIndex<T>(this IEnumerable<T> array, IEnumerable<T> arrayToCompare) where T : IEqualityComparer<T>
+        public static bool AreSameByValueAndIndex<T>(this IEnumerable<T> array, IEnumerable<T> arrayToCompare, Func<T, T, bool> compareFunction)
         {
             if (array.Count() != arrayToCompare.Count()) return false;
 
             for (var i = 0; i < array.Count(); i++)
             {
-                if(array.ElementAt(i).Equals(arrayToCompare.ElementAt(i)))
+                if(compareFunction(array.ElementAt(i), arrayToCompare.ElementAt(i)))
                     break;
 
                 return false;

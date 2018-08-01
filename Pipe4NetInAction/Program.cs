@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.InteropServices;
 using Pipe4Net;
 
 namespace Pipe4NetInAction
@@ -9,17 +11,26 @@ namespace Pipe4NetInAction
     {
         static void Main(string[] args)
         {
-            string baba = "Baba";
+            var array = new int[] {1, 2, 3, 4, 5, 6, 7, 8, 9};
+            var array2 = array.DeepCopy();
+            var array3 = array.ShallowCopy();
+            array[2] = 11;
 
-            baba.Pipe(Write);
+            array.ForEach(x => Console.Write(x + "\t"));
+            Console.WriteLine(Environment.NewLine);
 
-            baba.PipeReturn(WriteR).Pipe(Write);
+            array2.ForEach(x => Console.Write(x + "\t"));
+            Console.WriteLine(Environment.NewLine);
 
-            IList<int> aa = new List<int>();
+            array3.ForEach(x => Console.Write(x + "\t"));
+            Console.WriteLine(Environment.NewLine);
 
+            Console.WriteLine("Are same by reference: " + array.AreSameByReference(array3));
+            Console.WriteLine("Are same by reference: " + array.AreSameByReference(array2));
+
+            Console.WriteLine("Are same by value: " + array.AreSameByValue(array3, (a,b) => a == b));
+            Console.WriteLine("Are same by value: " + array.AreSameByValue(array2, (a, b) => a == b));
             Console.ReadKey();
-
-            IEnumerable<int> bb = new List<int>();
         }
 
         static void Write(string val)
