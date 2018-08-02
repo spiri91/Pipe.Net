@@ -1,10 +1,18 @@
 # Pipe.Net
 
-## Inspired by PowerShell, 3 extension methods that will simplify your code Pipe<T> and PipeWith<T>
+## Inspired by PowerShell, two extension methods that will simplify your code, Pipe and PipeWith
   
+Package manager: Install-Package Pipe4Net
+
+.NET CLI: dotnet add package Pipe4Net  
+  
+-----------------------------------------------------------------------------------------------------------
+
 ### var result = IncrementA(IncrementB(IncrementC(1)))
 ###      becomes 
 ### var pipedResult2 = IncrementC(1).Pipe(IncrementB).Pipe(IncrementA); 
+
+-----------------------------------------------------------------------------------------------------------
 
 ### You will find another goodie in there , an Option<T> monad in case you need it. 
 The code is pretty simple, i encourage you to play and extend it by your own needs
@@ -45,6 +53,8 @@ The test above perfectly represents what i want to achieve with this nuget packa
 var result = IncrementA(IncrementB(IncrementC(1))) becomes var pipedResult2 = IncrementC(1).Pipe(IncrementB).Pipe(IncrementA); 
 
 Awesome
+  
+-----------------------------------------------------------------------------------------------------------
   
 ## Some extensions methods on arrays that will make your code easier to read: 
  - .ForEach implementation for arrays
