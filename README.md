@@ -2,6 +2,13 @@
 
 ## Inspired by PowerShell, 3 extension methods that will simplify your code Pipe<T> and PipeWith<T>
   
+### var result = IncrementA(IncrementB(IncrementC(1)))
+###      becomes 
+### var pipedResult2 = IncrementC(1).Pipe(IncrementB).Pipe(IncrementA); 
+
+### You will find another goodie in there , an Option<T> monad in case you need it. 
+The code is pretty simple, i encourage you to play and extend it by your own needs
+  
     public static class PipeIt
     {
         public static void PipeWith<T>(this T obj, Action<T> action) => action(obj);
@@ -11,9 +18,9 @@
         public static Option<TR> Pipe<T,TR>(this T obj, Func<T, Option<TR>> func) => func(obj);
     }
     
-### Also it contains an Option<T> Monad, use it wisely 
+ This is the main reason why this package exists. Look at the other tests also they are pretty intuitive
   
-  [Fact]
+    [Fact]
         public void Should_Have_Same_Result_When_Piped()
         {
             var result = IncrementA(IncrementB(IncrementC(1)));
@@ -39,7 +46,7 @@ var result = IncrementA(IncrementB(IncrementC(1))) becomes var pipedResult2 = In
 
 Awesome
   
-## Some extensions methods on Generics collections that will make your code easier to read: 
+## Some extensions methods on arrays that will make your code easier to read: 
  - .ForEach implementation for arrays
  - .DeepCopy
  - .ShallowCopy
