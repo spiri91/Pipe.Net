@@ -11,7 +11,7 @@
         public static Option<TR> Pipe<T,TR>(this T obj, Func<T, Option<TR>> func) => func(obj);
     }
     
-## Also it contains an Option<T> Mondad, use it wiselly 
+### Also it contains an Option<T> Monad, use it wisely 
   
   [Fact]
         public void Should_Have_Same_Result_When_Piped()
