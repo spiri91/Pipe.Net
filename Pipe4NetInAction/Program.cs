@@ -30,6 +30,10 @@ namespace Pipe4NetInAction
 
             Console.WriteLine("Are same by value: " + array.AreSameByValue(array3, (a,b) => a == b));
             Console.WriteLine("Are same by value: " + array.AreSameByValue(array2, (a, b) => a == b));
+
+
+            
+
             Console.ReadKey();
         }
 
