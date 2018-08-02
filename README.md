@@ -22,7 +22,9 @@
 
         private int IncrementC(int val) => val++;
         
-### The test above perfectly represents what i want to achieve with this nuget package, i have reading code from right to left, or naming temporary variables, it just one of those things that bothers me in programming, and i think this way or writing code is more elegant: var result = IncrementA(IncrementB(IncrementC(1))) becomes var pipedResult2 = IncrementC(1).Pipe(IncrementB).Pipe(IncrementA); 
+### The test above perfectly represents what i want to achieve with this nuget package, i have reading code from right to left, or naming temporary variables, it just one of those things that bothers me in programming, and i think this way or writing code is more elegant: 
+
+### var result = IncrementA(IncrementB(IncrementC(1))) becomes var pipedResult2 = IncrementC(1).Pipe(IncrementB).Pipe(IncrementA); 
 
 ### Awesome
   
