@@ -2,7 +2,7 @@
 
 ## Inspired by PowerShell, 3 extension methods that will simplify your code Pipe<T> and PipeWith<T>
   
-   public static class PipeIt
+    public static class PipeIt
     {
         public static void PipeWith<T>(this T obj, Action<T> action) => action(obj);
       
