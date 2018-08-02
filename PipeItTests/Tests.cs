@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Pipe4Net;
 using Xunit;
 
@@ -74,5 +75,72 @@ namespace PipeItTests
         private int IncrementB(int val) => val++;
 
         private int IncrementC(int val) => val++;
+
+        [Fact]
+        public void Should_Deep_Copy_Array()
+        {
+            var testArray = Enumerable.Range(1, 10).ToArray();
+
+            var clonedArray = testArray.DeepCopy();
+
+            Assert.False(ReferenceEquals(testArray, clonedArray));
+
+            for (var i = 0; i < testArray.Length; i++) Assert.True(testArray[i] == clonedArray[i]);
+        }
+
+        [Fact]
+        public void Should_Shallow_Copy_Array()
+        {
+            var testArray = Enumerable.Range(1, 10).ToArray();
+
+            var clonedArray = testArray.ShallowCopy();
+            var deepClonedArray = testArray.DeepCopy();
+
+            Assert.True(ReferenceEquals(testArray, clonedArray));
+            Assert.False(ReferenceEquals(testArray, deepClonedArray));
+        }
+
+        [Fact]
+        public void Should_Compare_Arrays_By_Values()
+        {
+            var testArray = Enumerable.Range(1, 10).ToArray();
+
+            var clonedArray = testArray.DeepCopy().Reverse();
+
+            Assert.True(testArray.IsSameByValue(clonedArray, (i, i1) => i == i1));
+            Assert.False(testArray.IsSameByReference(clonedArray));
+
+            testArray = testArray.Concat(new [] { 11 }).ToArray();
+
+            Assert.False(testArray.IsSameByValue(clonedArray, (i, i1) => i == i1));
+        }
+
+        [Fact]
+        public void Should_Compare_Arrays_By_Reference()
+        {
+            var testArray = Enumerable.Range(1, 10).ToArray();
+
+            var clonedArray = testArray.ShallowCopy();
+            var deepClonedArray = testArray.DeepCopy();
+
+            Assert.True(testArray.IsSameByReference(clonedArray));
+            Assert.False(testArray.IsSameByReference(deepClonedArray));
+        }
+
+        [Fact]
+        public void Should_Compare_Arrays_By_Value_And_Index()
+        {
+            var testArray = Enumerable.Range(1, 10).ToArray();
+
+            var clonedArray = testArray.DeepCopy();
+
+            Assert.True(testArray.IsSameByValueAndIndex(clonedArray, (i, i1) => i1 == i));
+            Assert.False(testArray.IsSameByReference(clonedArray));
+
+            testArray = testArray.Concat(new [] {11}).ToArray();
+
+            Assert.False(testArray.IsSameByValueAndIndex(clonedArray, (i, i1) => i1 == i));
+        }
+
     }
 }

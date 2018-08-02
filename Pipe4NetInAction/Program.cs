@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using Pipe4Net;
+﻿using Pipe4Net;
+using System;
 
 namespace Pipe4NetInAction
 {
@@ -25,21 +21,23 @@ namespace Pipe4NetInAction
             array3.ForEach(x => Console.Write(x + "\t"));
             Console.WriteLine(Environment.NewLine);
 
-            Console.WriteLine("Are same by reference: " + array.AreSameByReference(array3));
-            Console.WriteLine("Are same by reference: " + array.AreSameByReference(array2));
+            Console.WriteLine("Are same by reference: " + array.IsSameByReference(array3));
+            Console.WriteLine("Are same by reference: " + array.IsSameByReference(array2));
 
-            Console.WriteLine("Are same by value: " + array.AreSameByValue(array3, (a,b) => a == b));
-            Console.WriteLine("Are same by value: " + array.AreSameByValue(array2, (a, b) => a == b));
+            Console.WriteLine("Are same by value: " + array.IsSameByValue(array3, (a,b) => a == b));
+            Console.WriteLine("Are same by value: " + array.IsSameByValue(array2, (a, b) => a == b));
 
 
-            
+            "mamaliga".Pipe((x) => Write(x, "bla", "bla"));
 
             Console.ReadKey();
         }
 
-        static void Write(string val)
+        static string Write(string val, string val2, string val3)
         {
             Console.WriteLine(val);
+
+            return null;
         }
 
         static string WriteR(string val)
