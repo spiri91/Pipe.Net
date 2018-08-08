@@ -7,9 +7,9 @@
     <Description>Inspired by Powershell, simple package that will remove the need to think of the name of some variables
 https://github.com/spiri91/Pipe.Net
 </Description>
-    <AssemblyVersion>1.1.0.0</AssemblyVersion>
-    <FileVersion>1.1.0.0</FileVersion>
-    <Version>1.1.0</Version>
+    <AssemblyVersion>1.1.3.0</AssemblyVersion>
+    <FileVersion>1.1.3.0</FileVersion>
+    <Version>1.1.3</Version>
   </PropertyGroup>
 
 </Project>

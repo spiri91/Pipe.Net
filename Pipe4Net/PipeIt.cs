@@ -5,6 +5,14 @@
     using System.Collections.Generic;
     using System.Linq;
 
+    /// <summary>
+    /// Use Option.From<T>(T value)
+    /// or
+    /// Option.None<T>() Will have property hasValue = false, and will return the defaut value of T on .Value
+    /// or
+    /// Option.None<T>(T defaultValue) Will have property hasValue = false, and will return the value passed as defaultValue
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class Option<T> : IEnumerable<T>
     {
         public static Option<T> From<T>(T value) => new Option<T>(value);
