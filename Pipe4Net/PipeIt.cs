@@ -9,7 +9,9 @@
     {
         public static Option<T> From<T>(T value) => new Option<T>(value);
 
-        public static Option<T> None<T>() => new Option<T>(default(T));
+        public static Option<T> None<T>() => new Option<T>(default(T), false);
+
+        public static Option<T> None<T>(T defaultValue) => new Option<T>(defaultValue, false);
 
         private Option() { }
 
@@ -19,19 +21,17 @@
             _value = value;
         }
 
+        private Option(T value, bool hasValue)
+        {
+            HasValue = hasValue;
+            _value = value;
+        }
+
         public bool HasValue { get; }
 
-        readonly T _value;
+        private readonly T _value;
 
-        public T Value
-        {
-            get
-            {
-                if (!HasValue) throw new InvalidOperationException();
-                
-                return _value;
-            }
-        }
+        public T Value => _value;
 
         public static implicit operator Option<T>(T value) => new Option<T>(value);
 

@@ -51,9 +51,9 @@ namespace PipeItTests
         {
             var defaultOfInt = default(int);
 
-            var objReturned = defaultOfInt.Pipe(x => Option<int>.None<int>());
+            var objReturned = defaultOfInt.Pipe(x => Option<int>.None(default(int)));
 
-            Assert.Equal(defaultOfInt, objReturned);
+            Assert.Equal(defaultOfInt, objReturned.Value);
         }
 
         [Fact]
@@ -142,5 +142,12 @@ namespace PipeItTests
             Assert.False(testArray.IsSameByValueAndIndex(clonedArray, (i, i1) => i1 == i));
         }
 
+        [Fact]
+        public void Should_Return_Null_From_Option_Of_Null()
+        {
+            var result = Option<Object>.None<Object>();
+
+            Assert.True(null == result.Value);
+        }
     }
 }
