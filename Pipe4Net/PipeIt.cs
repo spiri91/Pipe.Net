@@ -9,7 +9,7 @@
     {
         public static Option<T> From<T>(T value) => new Option<T>(value);
 
-        public static Option<T> None<T>() => default(T);
+        public static Option<T> None<T>() => new Option<T>(default(T));
 
         private Option() { }
 
