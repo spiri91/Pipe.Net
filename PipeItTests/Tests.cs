@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Pipe4Net;
 using Xunit;
@@ -148,6 +149,66 @@ namespace PipeItTests
             var result = Option<Object>.None<Object>();
 
             Assert.True(null == result.Value);
+        }
+
+        [Fact]
+        public void Should_Remove_Nulls_From_Array()
+        {
+            var objArray = new object[] {null, null, new object(), null, new object(), null};
+
+            var withoutNull = objArray.RemoveNulls();
+
+            foreach (var o in withoutNull)
+            {
+                Assert.True(o != null);
+            }
+        }
+
+        [Fact]
+        public void Should_Add_Element_To_Array()
+        {
+            var arrayOfInts = new int[] {1, 2, 3, 4, 5};
+            var arrayOfIntsWithAdd = arrayOfInts.AddElement(6);
+
+            Assert.Contains(6, arrayOfIntsWithAdd);
+        }
+
+        [Fact]
+        public void Should_Add_Elements_To_Array()
+        {
+            var arrayOfInts = new int[] { 1, 2, 3, 4, 5 };
+            var arrayToBeAdded = new int[] {6, 7, 8};
+
+            var arrayOfIntsWithAdd = arrayOfInts.AddElements(arrayToBeAdded);
+            foreach (var i in arrayOfIntsWithAdd)
+            {
+                Assert.Contains(i, arrayOfIntsWithAdd);
+            }
+        }
+
+        [Fact]
+        public void Should_Remove_Element_From_Array()
+        {
+            IEnumerable<int> arrayOfInts = new int[] { 1, 2, 3, 4, 5, 6 };
+            var elementToBeRemoved = 3;
+
+            arrayOfInts = arrayOfInts.RemoveElement(elementToBeRemoved);
+
+            Assert.DoesNotContain(elementToBeRemoved, arrayOfInts);
+        }
+
+        [Fact]
+        public void Should_Remove_Elements_From_Array()
+        {
+            IEnumerable<int> arrayOfInts = new int[] { 1, 2, 3, 4, 5, 6 };
+            var intsToBeRemoved = new int[] {4, 5, 6, 7};
+
+            arrayOfInts = arrayOfInts.RemoveElements(intsToBeRemoved);
+
+            foreach (var i in intsToBeRemoved)
+            {
+                Assert.DoesNotContain(i, arrayOfInts);
+            }
         }
     }
 }

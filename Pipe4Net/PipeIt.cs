@@ -175,5 +175,88 @@
         /// <param name="arrayToCompare"></param>
         /// <returns></returns>
         public static bool IsSameByReference<T>(this IEnumerable<T> array, IEnumerable<T> arrayToCompare) => ReferenceEquals(array, arrayToCompare);
+
+        /// <summary>
+        /// Remove all null elements in an array
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="array"></param>
+        public static IEnumerable<T> RemoveNulls<T>(this IEnumerable<T> array)
+        {
+            IEnumerable<T> arrayWithoutNulls = new T[0];
+
+            array.ForEach(x =>
+            {
+                if (x != null) arrayWithoutNulls = arrayWithoutNulls.AddElement(x);
+            });
+
+            return arrayWithoutNulls;
+        }
+
+        /// <summary>
+        /// Returns a copy of the array containing the element obj
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="array"></param>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static IEnumerable<T> AddElement<T>(this IEnumerable<T> array, T obj)
+        {
+            array = array.Concat(new [] {obj});
+
+            return array;
+        }
+
+        /// <summary>
+        /// Returns a copy of the array containing the elements obj
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="array"></param>
+        /// <param name="objs"></param>
+        /// <returns></returns>
+        public static IEnumerable<T> AddElements<T>(this IEnumerable<T> array, T[] objs)
+        {
+            array = array.Concat(objs);
+
+            return array;
+        }
+
+        /// <summary>
+        /// Returns a copy of the array without the element obj
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="array"></param>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static IEnumerable<T> RemoveElement<T>(this IEnumerable<T> array, T obj)
+        {
+            IEnumerable<T> temp = new T[0];
+
+            array.ForEach(v =>
+            {
+                if (false == v.Equals(obj)) temp = temp.AddElement(v);
+            });
+
+            return temp;
+        }
+
+        /// <summary>
+        /// Returns a copy of the array without the elements objs
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="array"></param>
+        /// <param name="objs"></param>
+        /// <returns></returns>
+        public static IEnumerable<T> RemoveElements<T>(this IEnumerable<T> array, T[] objs)
+        {
+            IEnumerable<T> temp = new T[0];
+
+            array.ForEach(x =>
+            {
+                if(false == objs.Contains(x)) temp = temp.AddElement(x);
+            });
+
+            return temp;
+        }
     }
 }
