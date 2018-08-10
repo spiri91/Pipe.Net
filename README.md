@@ -63,3 +63,8 @@ Awesome
  - .AreSameByValue
  - .AreSameByReference
  - .AreSameByValueAndIndex
+ - .RemoveElements
+ - .RemoveElement
+ - .AddElements
+ - .AddElement
+ - .RemoveNulls
