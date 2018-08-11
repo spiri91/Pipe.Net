@@ -15,11 +15,11 @@
     /// <typeparam name="T"></typeparam>
     public class Option<T> : IEnumerable<T>
     {
-        public static Option<T> From<T>(T value) => new Option<T>(value);
+        public static Option<T> From(T value) => new Option<T>(value);
 
-        public static Option<T> None<T>() => new Option<T>(default(T), false);
+        public static Option<T> None() => new Option<T>(default, false);
 
-        public static Option<T> None<T>(T defaultValue) => new Option<T>(defaultValue, false);
+        public static Option<T> None(T defaultValue) => new Option<T>(defaultValue, false);
 
         private Option() { }
 
@@ -84,7 +84,6 @@
 
     public static class IEnumerableExtensions
     {
-
         /// <summary>
         /// Just like .ForEach on a list this executes an action to each element of an array
         /// </summary>

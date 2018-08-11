@@ -146,7 +146,7 @@ namespace PipeItTests
         [Fact]
         public void Should_Return_Null_From_Option_Of_Null()
         {
-            var result = Option<Object>.None<Object>();
+            var result = Option<Object>.None();
 
             Assert.True(null == result.Value);
         }
