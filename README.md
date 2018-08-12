@@ -15,6 +15,16 @@ Package manager: Install-Package Pipe4Net
 -----------------------------------------------------------------------------------------------------------
 
 ### You will find another goodie in there , an Option<T> monad in case you need it. 
+  
+-----------------------------------------------------------------------------------------------------------
+### Two useful extension methods on bool type: 
+    .IfTrue(doThis)
+    .Else(doThis)
+    
+    Ex: ReturnBoolValue().IfTrue(() => Console.WriteLine("True")).Else(() => Console.WriteLine("False"));
+No need for temp variables or { } block statements
+
+----------------------------------------------------------------------------------------------------------
 The code is pretty simple, i encourage you to play and extend it by your own needs
   
     public static class PipeIt
