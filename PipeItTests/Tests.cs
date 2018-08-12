@@ -210,5 +210,31 @@ namespace PipeItTests
                 Assert.DoesNotContain(i, arrayOfInts);
             }
         }
+
+        [Fact]
+        public void Should_Run_IfTrue_Branch()
+        {
+            var i = 0;
+            Func<bool> ac = () => true;
+
+            ac().IfTrue(() => i++).Else(() => i--);
+
+            Assert.True(i == 1);
+            Assert.False(i == 0);
+            Assert.False(i == -1);
+        }
+
+        [Fact]
+        public void Should_Run_ElseBranch()
+        {
+            var i = 0;
+            Func<bool> ac = () => false;
+
+            ac().IfTrue(() => i++).Else(() => i--);
+
+            Assert.True(i == -1);
+            Assert.False(i == 0);
+            Assert.False(i == 1);
+        }
     }
 }

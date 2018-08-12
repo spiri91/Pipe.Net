@@ -80,6 +80,38 @@
         /// <param name="func"></param>
         /// <returns></returns>
         public static Option<TR> Pipe<T,TR>(this T obj, Func<T, Option<TR>> func) => func(obj);
+
+        /// <summary>
+        /// Extension method that evaluates a bool if is true executes action , can be continues with .Else
+        /// </summary>
+        /// <param name="condition"></param>
+        /// <param name="action"></param>
+        /// <returns></returns>
+        public static ElseBranch IfTrue(this bool condition, Action action)
+        {
+            if (true == condition) action();
+
+            return new ElseBranch(condition);
+        }
+    }
+
+    public sealed class ElseBranch
+    {
+        private readonly bool value;
+
+        public ElseBranch(bool value)
+        {
+            this.value = value;
+        }
+
+        /// <summary>
+        /// Chained with .IfTrue extension method on bool, this will run instead of IfTrue
+        /// </summary>
+        /// <param name="action"></param>
+        public void Else(Action action)
+        {
+            if(false == value) action();
+        }
     }
 
     public static class IEnumerableExtensions

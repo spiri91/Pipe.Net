@@ -30,6 +30,8 @@ namespace Pipe4NetInAction
 
             "mamaliga".Pipe((x) => Write(x, "bla", "bla"));
 
+            ReturnTrue().IfTrue(() => Console.WriteLine("True")).Else(() => Console.WriteLine("False"));
+
             Console.ReadKey();
         }
 
@@ -46,5 +48,7 @@ namespace Pipe4NetInAction
 
             return val;
         }
+
+        static bool ReturnTrue() => true;
     }
 }
