@@ -64,7 +64,7 @@ namespace PipeItTests
 
             var pipedResult = 1.Pipe(IncrementC).Pipe(IncrementB).Pipe(IncrementC);
 
-            Assert.Equal(result,pipedResult);
+            Assert.Equal(result, pipedResult);
 
             var pipedResult2 = IncrementC(1).Pipe(IncrementB).Pipe(IncrementA);
 
@@ -111,7 +111,7 @@ namespace PipeItTests
             Assert.True(testArray.IsSameByValue(clonedArray, (i, i1) => i == i1));
             Assert.False(testArray.IsSameByReference(clonedArray));
 
-            testArray = testArray.Concat(new [] { 11 }).ToArray();
+            testArray = testArray.Concat(new[] { 11 }).ToArray();
 
             Assert.False(testArray.IsSameByValue(clonedArray, (i, i1) => i == i1));
         }
@@ -138,7 +138,7 @@ namespace PipeItTests
             Assert.True(testArray.IsSameByValueAndIndex(clonedArray, (i, i1) => i1 == i));
             Assert.False(testArray.IsSameByReference(clonedArray));
 
-            testArray = testArray.Concat(new [] {11}).ToArray();
+            testArray = testArray.Concat(new[] { 11 }).ToArray();
 
             Assert.False(testArray.IsSameByValueAndIndex(clonedArray, (i, i1) => i1 == i));
         }
@@ -154,7 +154,7 @@ namespace PipeItTests
         [Fact]
         public void Should_Remove_Nulls_From_Array()
         {
-            var objArray = new object[] {null, null, new object(), null, new object(), null};
+            var objArray = new object[] { null, null, new object(), null, new object(), null };
 
             var withoutNull = objArray.RemoveNulls();
 
@@ -167,7 +167,7 @@ namespace PipeItTests
         [Fact]
         public void Should_Add_Element_To_Array()
         {
-            var arrayOfInts = new int[] {1, 2, 3, 4, 5};
+            var arrayOfInts = new int[] { 1, 2, 3, 4, 5 };
             var arrayOfIntsWithAdd = arrayOfInts.AddElement(6);
 
             Assert.Contains(6, arrayOfIntsWithAdd);
@@ -177,7 +177,7 @@ namespace PipeItTests
         public void Should_Add_Elements_To_Array()
         {
             var arrayOfInts = new int[] { 1, 2, 3, 4, 5 };
-            var arrayToBeAdded = new int[] {6, 7, 8};
+            var arrayToBeAdded = new int[] { 6, 7, 8 };
 
             var arrayOfIntsWithAdd = arrayOfInts.AddElements(arrayToBeAdded);
             foreach (var i in arrayOfIntsWithAdd)
@@ -201,7 +201,7 @@ namespace PipeItTests
         public void Should_Remove_Elements_From_Array()
         {
             IEnumerable<int> arrayOfInts = new int[] { 1, 2, 3, 4, 5, 6 };
-            var intsToBeRemoved = new int[] {4, 5, 6, 7};
+            var intsToBeRemoved = new int[] { 4, 5, 6, 7 };
 
             arrayOfInts = arrayOfInts.RemoveElements(intsToBeRemoved);
 
@@ -235,6 +235,59 @@ namespace PipeItTests
             Assert.True(i == -1);
             Assert.False(i == 0);
             Assert.False(i == 1);
+        }
+
+        [Fact]
+        public void Should_For_Each_With_Index()
+        {
+            IEnumerable<int> arrayOfInts = new int[] { 1, 2, 3, 4, 5, 6 };
+            var index = 0;
+            var action = new Action<int, int>((element, i) =>
+            {
+                Assert.True(element == arrayOfInts.ElementAt(index));
+                Assert.True(index == i);
+
+                index++;
+            });
+
+            arrayOfInts.ForEachWithIndex(action);
+        }
+
+        [Fact]
+        public void Should_Split_By()
+        {
+            IEnumerable<int> arrayOfInts = new int[] { 1, 2, 3, 4, 5, 6, 7 };
+            int[][] result = new int[][]{ new int[]{ 1,2,3},
+                new int[]{ 4,5,6},
+                new int[]{ 7, 0, 0}
+            };
+
+            var possibleResult = arrayOfInts.Split(3);
+
+            for(var i = 0; i<result.Count(); i++)
+            {
+                var bla = result.ElementAt(i);
+
+                for(var j = 0; j< bla.Count(); j++)
+                {
+                    Assert.True(result[i][j] == possibleResult[i][j]);
+                }
+            }
+        }
+
+        [Fact]
+        public void Should_Create_For_Loop_From_Int()
+        {
+            var bla = 6;
+            var index = 0;
+            var counter = new[] { 0, 1, 2, 3, 4, 5 };
+            var action = new Action(() =>
+            {
+                Assert.True(index == counter[index]);
+                index++;
+            });
+
+            bla.GenerateForLoop(action);
         }
     }
 }

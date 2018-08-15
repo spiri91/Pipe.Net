@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <Authors>Spataru Ionut</Authors>
-    <PackageTags>forwarding powershell c# Option Maybe Monad if else branching</PackageTags>
+    <PackageTags>forwarding powershell c# Option Maybe Monad if else branching for foreach looping</PackageTags>
     <Description>Inspired by Powershell, simple package that will remove the need to think of the name of some variables.
 Also some useful extension methods on IEnumerable type.
 Contains an Option&lt;T&gt; mondad
@@ -12,9 +12,9 @@ Extensions on bool type IfTrue(doThis).Else(doThis)
 Check out the full project on GitHub
 https://github.com/spiri91/Pipe.Net
 </Description>
-    <AssemblyVersion>1.2.0.0</AssemblyVersion>
-    <FileVersion>1.2.0.0</FileVersion>
-    <Version>1.2</Version>
+    <AssemblyVersion>1.2.1.0</AssemblyVersion>
+    <FileVersion>1.2.1.0</FileVersion>
+    <Version>1.2.1</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">

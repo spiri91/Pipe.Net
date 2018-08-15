@@ -79,7 +79,7 @@
         /// <param name="obj"></param>
         /// <param name="func"></param>
         /// <returns></returns>
-        public static Option<TR> Pipe<T,TR>(this T obj, Func<T, Option<TR>> func) => func(obj);
+        public static Option<TR> Pipe<T, TR>(this T obj, Func<T, Option<TR>> func) => func(obj);
 
         /// <summary>
         /// Extension method that evaluates a bool if is true executes action , can be continues with .Else
@@ -110,7 +110,7 @@
         /// <param name="action"></param>
         public void Else(Action action)
         {
-            if(false == value) action();
+            if (false == value) action();
         }
     }
 
@@ -189,7 +189,7 @@
 
             for (var i = 0; i < array.Count(); i++)
             {
-                if(compareFunction(array.ElementAt(i), arrayToCompare.ElementAt(i)))
+                if (compareFunction(array.ElementAt(i), arrayToCompare.ElementAt(i)))
                     continue;
 
                 return false;
@@ -233,7 +233,7 @@
         /// <returns></returns>
         public static IEnumerable<T> AddElement<T>(this IEnumerable<T> array, T obj)
         {
-            array = array.Concat(new [] {obj});
+            array = array.Concat(new[] { obj });
 
             return array;
         }
@@ -284,10 +284,70 @@
 
             array.ForEach(x =>
             {
-                if(false == objs.Contains(x)) temp = temp.AddElement(x);
+                if (false == objs.Contains(x)) temp = temp.AddElement(x);
             });
 
             return temp;
+        }
+
+        /// <summary>
+        /// Just like the normal .ForEach this injects the index also, so you don't have to use a normal for loop
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="array"></param>
+        /// <param name="action"></param>
+        public static void ForEachWithIndex<T>(this IEnumerable<T> array, Action<T, int> action)
+        {
+            var arrLength = array.Count();
+            for (var i = 0; i < arrLength; i++)
+            {
+                action(array.ElementAt(i), i);
+            }
+        }
+
+        /// <summary>
+        /// Will split an simple one direction array in a jagged array with length = splitByParameter
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="array"></param>
+        /// <param name="splitBy">The length of each subArray</param>
+        /// <returns>A jagger array T[splitBy][splitBy]</returns>
+        public static T[][] Split<T>(this IEnumerable<T> array, int splitBy)
+        {
+            T[][] _temp = new T[splitBy][];
+            for (var x = 0; x < splitBy; x++)
+            {
+                _temp[x] = new T[splitBy];
+            }
+
+            var length = array.Count() - 1;
+            var enumerator = array.GetEnumerator();
+            var mod = (length / splitBy);
+            var i = 0;
+            var j = 0;
+            while (enumerator.MoveNext())
+            {
+                _temp[i][j] = enumerator.Current;
+                if (j == mod)
+                {
+                    i++;
+                    j = 0;
+                }
+                else
+                    j++;
+            }
+
+            return _temp;
+        }
+
+        /// <summary>
+        /// Will execute an action for n number of times where n = int on which this extension method is invoked on
+        /// </summary>
+        /// <param name="count"></param>
+        /// <param name="action"></param>
+        public static void GenerateForLoop(this int count, Action action)
+        {
+            for (var i = 0; i < count; i++) action();
         }
     }
 }
