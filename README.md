@@ -78,3 +78,8 @@ Awesome
  - .AddElements
  - .AddElement
  - .RemoveNulls
+ - .ForEachWithIndex
+ - .Split
+ 
+## One extension method on int:
+ - .GenerateForLoop
