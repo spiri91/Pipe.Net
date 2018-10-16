@@ -28,7 +28,7 @@ namespace Pipe4NetInAction
             Console.WriteLine("Are same by value: " + array.IsSameByValue(array2, (a, b) => a == b));
 
 
-            "mamaliga".Pipe((x) => Write(x, "bla", "bla"));
+            "mamaliga".PipeResultTo((x) => Write(x, "bla", "bla"));
 
             ReturnTrue().IfTrue(() => Console.WriteLine("True")).Else(() => Console.WriteLine("False"));
 

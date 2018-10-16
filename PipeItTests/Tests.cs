@@ -13,7 +13,7 @@ namespace PipeItTests
         {
             var testObj = "mamaliga";
 
-            testObj.PipeWith(Console.WriteLine);
+            testObj.EndWith(Console.WriteLine);
         }
 
         [Fact]
@@ -21,7 +21,7 @@ namespace PipeItTests
         {
             var testObj = "mamaliga";
 
-            var testObjReturned = testObj.Pipe(x => x);
+            var testObjReturned = testObj.PipeResultTo(x => x);
 
             Assert.Equal(testObjReturned, testObj);
         }
@@ -32,7 +32,7 @@ namespace PipeItTests
             var testObj = "mamaliga";
             var ending = "mood";
 
-            var testObjReturned = testObj.Pipe(x => x + ending);
+            var testObjReturned = testObj.PipeResultTo(x => x + ending);
 
             Assert.Equal(testObjReturned, testObj + ending);
         }
@@ -42,7 +42,7 @@ namespace PipeItTests
         {
             var testObj = "mamaliga";
 
-            var objReturned = testObj.Pipe(x => Option<string>.From(x));
+            var objReturned = testObj.PipeResultTo(x => Option<string>.From(x));
 
             Assert.Equal(testObj, objReturned.Value);
         }
@@ -52,7 +52,7 @@ namespace PipeItTests
         {
             var defaultOfInt = default(int);
 
-            var objReturned = defaultOfInt.Pipe(x => Option<int>.None(default(int)));
+            var objReturned = defaultOfInt.PipeResultTo(x => Option<int>.None(default(int)));
 
             Assert.Equal(defaultOfInt, objReturned.Value);
         }
@@ -62,11 +62,11 @@ namespace PipeItTests
         {
             var result = IncrementA(IncrementB(IncrementC(1)));
 
-            var pipedResult = 1.Pipe(IncrementC).Pipe(IncrementB).Pipe(IncrementC);
+            var pipedResult = 1.PipeResultTo(IncrementC).PipeResultTo(IncrementB).PipeResultTo(IncrementC);
 
             Assert.Equal(result, pipedResult);
 
-            var pipedResult2 = IncrementC(1).Pipe(IncrementB).Pipe(IncrementA);
+            var pipedResult2 = IncrementC(1).PipeResultTo(IncrementB).PipeResultTo(IncrementA);
 
             Assert.Equal(result, pipedResult2);
         }
@@ -289,5 +289,17 @@ namespace PipeItTests
 
             bla.GenerateForLoop(action);
         }
+
+        [Fact]
+        public void Should_Create_For_Loop_From_Int_With_Index()
+        {
+            var foo = 10;
+            var eta = 0;
+            foo.GenerateForLoopWithIndex((i) =>
+            {
+                Assert.True(i == eta);
+                eta++;
+            });
+        } 
     }
 }

@@ -62,6 +62,15 @@
         public static void PipeWith<T>(this T obj, Action<T> action) => action(obj);
 
         /// <summary>
+        /// Pipes the object to anoter action without expecting a result, returns void
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="obj"></param>
+        /// <param name="action"></param>
+        public static void EndWith<T>(this T obj, Action<T> action) => action(obj);
+
+
+        /// <summary>
         /// Pipes the object to anoter function, function that returns a value of the same tipe as T
         /// Ex: calls a function that has a parameter of type string and returns a string
         /// </summary>
@@ -72,6 +81,16 @@
         public static T Pipe<T>(this T obj, Func<T, T> func) => func(obj);
 
         /// <summary>
+        /// Pipes the object to anoter function, function that returns a value of the same tipe as T
+        /// Ex: calls a function that has a parameter of type string and returns a string
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="obj"></param>
+        /// <param name="func"></param>
+        /// <returns></returns>
+        public static T PipeResultTo<T>(this T obj, Func<T, T> func) => func(obj);
+
+        /// <summary>
         /// Pipes the object to another function, function that returns an Options<T> monad
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -80,6 +99,16 @@
         /// <param name="func"></param>
         /// <returns></returns>
         public static Option<TR> Pipe<T, TR>(this T obj, Func<T, Option<TR>> func) => func(obj);
+
+        /// <summary>
+        /// Pipes the object to another function, function that returns an Options<T> monad
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="TR"></typeparam>
+        /// <param name="obj"></param>
+        /// <param name="func"></param>
+        /// <returns></returns>
+        public static Option<TR> PipeResultTo<T, TR>(this T obj, Func<T, Option<TR>> func) => func(obj);
 
         /// <summary>
         /// Extension method that evaluates a bool if is true executes action , can be continues with .Else
@@ -348,6 +377,11 @@
         public static void GenerateForLoop(this int count, Action action)
         {
             for (var i = 0; i < count; i++) action();
+        }
+
+        public static void GenerateForLoopWithIndex(this int count, Action<int> action)
+        {
+            for (var i = 0; i < count; i++) action(i);
         }
     }
 }
