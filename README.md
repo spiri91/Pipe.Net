@@ -6,6 +6,18 @@ Package manager: Install-Package Pipe4Net
 
 .NET CLI: dotnet add package Pipe4Net  
   
+  
+----------------------------------------------------------------------------------------------------------- 
+  -- Update 16.10.2018 v1.3
+  
+  For better redability added: 
+  
+  PipeResultTo same as Pipe 
+  
+  EndWith same as PipeWith
+  
+  added new extension method on int : GenerateForLoopWithIndex((i) => cw(i)) where i is the current index in for loop, zero based! runs from i = 0 to i < targetInt
+  
 -----------------------------------------------------------------------------------------------------------
 
 ### var result = IncrementA(IncrementB(IncrementC(1)))
