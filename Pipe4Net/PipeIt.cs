@@ -81,7 +81,7 @@
         public static T Pipe<T>(this T obj, Func<T, T> func) => func(obj);
 
         /// <summary>
-        /// Pipes the object to anoter function, function that returns a value of the same tipe as T
+        /// Pipes the object to anoter function, function that returns a value of the same type as T
         /// Ex: calls a function that has a parameter of type string and returns a string
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -109,6 +109,33 @@
         /// <param name="func"></param>
         /// <returns></returns>
         public static Option<TR> PipeResultTo<T, TR>(this T obj, Func<T, Option<TR>> func) => func(obj);
+
+        /// <summary>
+        /// Pipes the object to any method, it has a cast func in order to cast the sent object type to the object in the signature of the method
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="TR"></typeparam>
+        /// <param name="obj"></param>
+        /// <param name="castInputAction"></param>
+        /// <param name="func"></param>
+        /// <returns></returns>
+        public static TR Pipe<T, TR>(this object obj, Func<object, T> castInputAction, Func<T, TR> func) =>
+            func(castInputAction(obj));
+
+        /// <summary>
+        /// Pipes the object to any method, it has a cast func in order to cast the sent object type to the object in the signature of the method
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="TR"></typeparam>
+        /// <param name="obj"></param>
+        /// <param name="castInputAction"></param>
+        /// <param name="func"></param>
+        /// <returns></returns>
+        public static Option<TR> Pipe<T, TR>(this T obj, Func<object, T> castInputAction, Func<T, Option<TR>> func) =>
+            func(castInputAction(obj));
+
+        public static void Pipe<T>(this object obj, Func<object, T> castInputAction, Action<T> action) =>
+            action(castInputAction(obj));
 
         /// <summary>
         /// Extension method that evaluates a bool if is true executes action , can be continues with .Else

@@ -7,6 +7,10 @@ namespace Pipe4NetInAction
     {
         static void Main(string[] args)
         {
+
+            Return33().Pipe(x => x.ToString(), WriteR);
+
+
             var array = new int[] {1, 2, 3, 4, 5, 6, 7, 8, 9};
             var array2 = array.DeepCopy();
             var array3 = array.ShallowCopy();
@@ -48,6 +52,8 @@ namespace Pipe4NetInAction
 
             return val;
         }
+
+        static int Return33() => 33;
 
         static bool ReturnTrue() => true;
     }
